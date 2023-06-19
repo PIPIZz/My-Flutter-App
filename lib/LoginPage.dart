@@ -35,8 +35,8 @@ class _LoginPageState extends State<LoginPage> {
             }))
       });
     } on FirebaseAuthException catch (e) {
-      // print('Failed with error code: ${e.code}');
-      // print(e.message);
+      print('Failed with error code: ${e.code}');
+      print(e.message);
       Fluttertoast.showToast(
         msg: e.code,
         gravity: ToastGravity.CENTER
@@ -143,5 +143,7 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
     );
+
+    
   }
 }

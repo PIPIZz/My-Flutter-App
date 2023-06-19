@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
@@ -12,10 +13,41 @@ class _Homepage extends State<Homepage> {
   // final Stream<QuerySnapshot> _usersStream =
   //     FirebaseFirestore.instance.collection('users').snapshots();
   final proflie = FirebaseAuth.instance.currentUser!;
+
+  String fullName = '';
+
   @override
   //work first
   void initState() {
     super.initState();
+    getDataById();
+  }
+
+  void getDataById() async {
+    try {
+      // Retrieve a reference to the document using the provided ID
+      DocumentSnapshot documentSnapshot = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(proflie.uid)
+          .get();
+
+      if (documentSnapshot.exists) {
+        Map<String, dynamic>? data =
+            documentSnapshot.data() as Map<String, dynamic>?;
+        if (data != null) {
+          // String? fullName = data['fullname'] as String?;
+          // print(data['fullName']);
+          setState(() {
+            this.fullName = data['fullname'];
+          });
+        } else {
+          print('Document does not exist');
+        }
+      }
+    } catch (e) {
+      // Handle any errors that occur during data retrieval
+      print('Error retrieving data: $e');
+    }
   }
 
   @override
@@ -30,18 +62,18 @@ class _Homepage extends State<Homepage> {
               width: double.infinity,
               height: 400,
             ),
-            const Text(
-              "Welcome",
+            Text(
+              "Greeting",
               style: TextStyle(fontSize: 40),
             ),
             const SizedBox(
-              height: 15,
+              height: 20,
             ),
             Text(
-              proflie.displayName!,
-              style: const TextStyle(fontSize: 30),
+              "$fullName",
+              style: TextStyle(fontSize: 30),
             ),
-            const SizedBox(
+             const SizedBox(
               height: 20,
             ),
             ElevatedButton.icon(
@@ -52,7 +84,6 @@ class _Homepage extends State<Homepage> {
                 },
                 icon: const Icon(Icons.logout_sharp),
                 label: const Text("Sign Out")),
-                
           ],
         ),
       ),

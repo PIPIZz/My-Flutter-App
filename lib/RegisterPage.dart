@@ -17,17 +17,17 @@ class RegisterPage extends StatefulWidget {
 class _RegisterPageState extends State<RegisterPage> {
   final formkey = GlobalKey<FormState>();
   // final _Registercontroller = TextEditingController();
-  final nameController = TextEditingController();
+  final fullnameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
   SingupWithEmailandPassword() async {
     try {
-      final name = nameController.value.text;
+      final fullname = fullnameController.value.text;
       final email = emailController.value.text;
       final password = passwordController.value.text;
       await Auth()
-          .RegisterWithEmailandPassword(name, email, password)
+          .RegisterWithEmailandPassword(fullname ,email, password)
           .then((res) => {
                 formkey.currentState!.reset(),
                 Fluttertoast.showToast(
@@ -61,7 +61,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   void dispose() {
-    nameController.dispose();
+    fullnameController.dispose();
     emailController.dispose();
     passwordController.dispose();
     super.dispose();
@@ -107,7 +107,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   validator:
                       ValidationBuilder().minLength(2).maxLength(50).build(),
                   autovalidateMode: AutovalidateMode.always,
-                  controller: nameController,
+                  controller: fullnameController,
                   decoration: const InputDecoration(
                     border: UnderlineInputBorder(),
                     hintText: 'FullName',
@@ -141,11 +141,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     border: UnderlineInputBorder(),
                     hintText: 'Password',
                     icon: Icon(Icons.password),
-                  ),
-                  onSaved: (String? value2) {
-                    // This optional block of code can be used to run
-                    // code when the user saves the form.
-                  },
+                  ), 
                 ),
                 const SizedBox(
                   height: 15,
@@ -155,7 +151,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   child: TextButton(
                     onPressed: () => {
                       if (formkey.currentState!.validate())
-                        {print("เข้าอยู่"), SingupWithEmailandPassword()}
+                        {SingupWithEmailandPassword()}
                       else
                         {print("Error")}
                     },

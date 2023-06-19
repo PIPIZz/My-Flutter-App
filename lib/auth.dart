@@ -14,20 +14,31 @@ class Auth {
   }
 
   Future<void> RegisterWithEmailandPassword(
-      String name, String email, String password) async {
+    String fullname,  String email, String password) async {
     try {
+      final db = FirebaseFirestore.instance;
+
       UserCredential userCredential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
+      // User created successfully
+      User? user = userCredential.user;
 
-      if (userCredential.user != null) {
-        if (userCredential.user != null) {
-          User? user = userCredential.user;
-          await user!.updateDisplayName(name);
-          User? updatedUser = FirebaseAuth.instance.currentUser;
-          print('Display Name Updated: ${updatedUser!.displayName}');
-          // You can navigate to a new screen or perform any other action here
-        }
-      }
+      final data = <String, dynamic>{
+        'email': email,
+        'uid': user!.uid,
+        'fullname': fullname
+      };
+
+      final newUsers = db.collection("users").doc(user!.uid);
+
+// Later...
+      newUsers.set(data);
+      // Save email in Firestore
+      // await FirebaseFirestore.instance.collection('users').doc(user!.uid).set({
+      //   'email': email,
+      //   'uid': user.uid,
+      //   'fullname' :
+      // });
     } on FirebaseAuthException catch (e) {
       print('Failed with error code: ${e.code}');
       print(e.message);
