@@ -1,16 +1,32 @@
-# myflutterapplication
+# MyFlutterApplication
 
-A new Flutter project.
+Login and Signup written in Flutter using Firebase / Firestore
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
+## Dependencies
+- Flutter
+- Firestore
+- Form_validator
+- Firebase Auth
+- Fluttertoast
+  
+# Getting Started
+1. Setup Flutter
+2. Clone the repo 
 
-A few resources to get you started if this is your first Flutter project:
+    $ git clone https://github.com/PIPIZz/My-Flutter-App.git
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+    $ cd My-Flutter-App/
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Step 1:
+
+Download or clone this repo by using the link below:
+
+    https://github.com/PIPIZz/My-Flutter-App.git
+
+
+## Step 2:
+
+Go to project root and execute the following command in console to get the required dependencies:
+
+    flutter pub get 
